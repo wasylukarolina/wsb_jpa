@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "PATIENT")
@@ -33,6 +35,14 @@ public class PatientEntity {
 
 	@Column(nullable = false)
 	private LocalDate dateOfBirth;
+
+	@ManyToOne(optional = false) // Jednostronna relacja od strony dziecka
+	@JoinColumn(name = "address_id", nullable = false)
+	private AddressEntity address;
+
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<VisitEntity> visits; // Dwustronna relacja z VisitEntity
+
 
 	public Long getId() {
 		return id;

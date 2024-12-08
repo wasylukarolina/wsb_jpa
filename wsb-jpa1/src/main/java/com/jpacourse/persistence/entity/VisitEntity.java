@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
+
 
 @Entity
 @Table(name = "VISIT")
@@ -21,6 +24,17 @@ public class VisitEntity {
 
 	@Column(nullable = false)
 	private LocalDateTime time;
+
+	@ManyToOne(optional = false) // Jednostronna relacja od strony dziecka
+	@JoinColumn(name = "patient_id", nullable = false)
+	private PatientEntity patient;
+
+	@ManyToOne(optional = false) // Jednostronna relacja od strony dziecka
+	@JoinColumn(name = "doctor_id", nullable = false)
+	private DoctorEntity doctor;
+
+	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<MedicalTreatmentEntity> treatments; // Dwustronna relacja z MedicalTreatmentEntity
 
 	public Long getId() {
 		return id;

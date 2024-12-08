@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "DOCTOR")
@@ -36,6 +38,9 @@ public class DoctorEntity {
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Specialization specialization;
+
+	@OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<VisitEntity> visits; // Dwustronna relacja z VisitEntity
 
 	public Long getId() {
 		return id;

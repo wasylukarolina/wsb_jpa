@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "ADDRESS")
@@ -21,6 +23,9 @@ public class AddressEntity {
 	private String addressLine2;
 
 	private String postalCode;
+
+	@OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<PatientEntity> patients; // Dwustronna relacja z PatientEntity
 
 	public Long getId() {
 		return id;
