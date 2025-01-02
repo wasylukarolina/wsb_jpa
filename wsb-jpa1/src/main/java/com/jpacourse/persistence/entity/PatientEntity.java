@@ -36,6 +36,9 @@ public class PatientEntity {
 	@Column(nullable = false)
 	private LocalDate dateOfBirth;
 
+	@Column(nullable = false)
+	private Boolean isInsured;
+
 	@ManyToOne(optional = false) // Jednostronna relacja od strony dziecka
 	@JoinColumn(name = "address_id", nullable = false)
 	private AddressEntity address;
@@ -43,6 +46,21 @@ public class PatientEntity {
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<VisitEntity> visits; // Dwustronna relacja z VisitEntity
 
+	public Set<VisitEntity> getVisits() {
+		return visits;
+	}
+
+	public void setVisits(Set<VisitEntity> visits) {
+		this.visits = visits;
+	}
+
+	public Boolean getIsInsured() {
+		return isInsured;
+	}
+
+	public void setIsInsured(Boolean isInsured) {
+		this.isInsured = isInsured;
+	}
 
 	public Long getId() {
 		return id;
@@ -100,4 +118,19 @@ public class PatientEntity {
 		this.dateOfBirth = dateOfBirth;
 	}
 
+	public Boolean getInsured() {
+		return isInsured;
+	}
+
+	public void setInsured(Boolean insured) {
+		isInsured = insured;
+	}
+
+	public AddressEntity getAddress() {
+		return address;
+	}
+
+	public void setAddress(AddressEntity address) {
+		this.address = address;
+	}
 }

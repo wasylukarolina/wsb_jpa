@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -34,7 +35,7 @@ public class VisitEntity {
 	private DoctorEntity doctor;
 
 	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<MedicalTreatmentEntity> treatments; // Dwustronna relacja z MedicalTreatmentEntity
+	private Set<MedicalTreatmentEntity> treatments = new HashSet<>(); // Dwustronna relacja z MedicalTreatmentEntity
 
 	public Long getId() {
 		return id;
@@ -60,4 +61,27 @@ public class VisitEntity {
 		this.time = time;
 	}
 
+	public PatientEntity getPatient() {
+		return patient;
+	}
+
+	public void setPatient(PatientEntity patient) {
+		this.patient = patient;
+	}
+
+	public DoctorEntity getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(DoctorEntity doctor) {
+		this.doctor = doctor;
+	}
+
+	public Set<MedicalTreatmentEntity> getTreatments() {
+		return treatments;
+	}
+
+	public void setTreatments(Set<MedicalTreatmentEntity> treatments) {
+		this.treatments = treatments;
+	}
 }
