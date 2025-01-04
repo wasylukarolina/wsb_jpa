@@ -126,7 +126,7 @@ public class PatientServiceTest {
         visitEntity.setDoctor(doctorEntity);
         patientEntity.setVisits(Collections.singleton(visitEntity));
 
-        patientEntity = patientRepository.save(patientEntity); 
+        patientEntity = patientRepository.save(patientEntity);
 
         // when
         PatientTO result = patientService.findById(patientEntity.getId());

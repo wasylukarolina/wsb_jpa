@@ -6,10 +6,10 @@ INSERT INTO ADDRESS (city, address_line1, address_line2, postal_code) VALUES
 
 -- Dodanie lekarzy z różnymi specjalizacjami
 INSERT INTO DOCTOR (first_name, last_name, telephone_number, email, doctor_number, specialization) VALUES
-                                                                                                       ('Jan', 'Kowalski', '123456789', 'jan.kowalski@email.com', 'D001', 'CHIRURG'),
-                                                                                                       ('Anna', 'Nowak', '987654321', 'anna.nowak@email.com', 'D002', 'INTERNISTA'),
-                                                                                                       ('Piotr', 'Wiśniewski', '456123789', 'piotr.wisniewski@email.com', 'D003', 'DERMATOLOG'),
-                                                                                                       ('Maria', 'Dąbrowska', '321654987', 'maria.dabrowska@email.com', 'D004', 'OKULISTA');
+                                                                                                       ('Jan', 'Kowalski', '123456789', 'jan.kowalski@email.com', 'D001', 'SURGEON'),
+                                                                                                       ('Anna', 'Nowak', '987654321', 'anna.nowak@email.com', 'D002', 'GP'),
+                                                                                                       ('Piotr', 'Wiśniewski', '456123789', 'piotr.wisniewski@email.com', 'D003', 'DERMATOLOGIST'),
+                                                                                                       ('Maria', 'Dąbrowska', '321654987', 'maria.dabrowska@email.com', 'D004', 'OCULIST');
 
 -- Dodanie pacjentów
 INSERT INTO PATIENT (first_name, last_name, date_of_birth, telephone_number, email, patient_number, address_id, is_insured) VALUES
