@@ -4,5 +4,7 @@ public enum TreatmentType {
 
 	USG,
 	EKG,
-	RTG
+	RTG,
+	PHYSIOTHERAPY,
+	OPTICAL_TEST
 }

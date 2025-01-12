@@ -1,5 +1,7 @@
 package com.jpacourse.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -44,6 +46,7 @@ public class PatientEntity {
 	private AddressEntity address;
 
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
 	private Set<VisitEntity> visits; // Dwustronna relacja z VisitEntity
 
 	public Set<VisitEntity> getVisits() {

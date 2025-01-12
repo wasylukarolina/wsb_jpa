@@ -1,5 +1,7 @@
 package com.jpacourse.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -28,6 +30,7 @@ public class VisitEntity {
 
 	@ManyToOne(optional = false) // Jednostronna relacja od strony dziecka
 	@JoinColumn(name = "patient_id", nullable = false)
+	@JsonBackReference
 	private PatientEntity patient;
 
 	@ManyToOne(optional = false) // Jednostronna relacja od strony dziecka

@@ -66,4 +66,24 @@ public class PatientServiceImpl implements PatientService {
         patientRepository.save(patient);
     }
 
+    @Override
+    public List<PatientEntity> findPatientsByLastName(String lastName) {
+        return patientRepository.findPatientsByLastName(lastName);
+    }
+
+    @Override
+    public List<VisitEntity> findVisitsByPatientId(Long patientId) {
+        return patientRepository.findVisitsByPatientId(patientId);
+    }
+
+    @Override
+    public List<PatientEntity> findPatientsWithMoreThanGivenVisits(int visitCount) {
+        return patientRepository.findPatientsWithMoreThanGivenVisits(visitCount);
+    }
+
+    @Override
+    public List<PatientEntity> findPatientsWithVisitsAfter(LocalDateTime date) {
+        return patientRepository.findPatientsWithVisitsAfter(date);
+    }
+
 }
