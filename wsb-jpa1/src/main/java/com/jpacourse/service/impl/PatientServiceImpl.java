@@ -66,4 +66,9 @@ public class PatientServiceImpl implements PatientService {
         patientRepository.save(patient);
     }
 
+    @Override
+    public List<PatientEntity> findPatientsByLastName(String lastName) {
+        return patientRepository.findPatientsByLastName(lastName);
+    }
+
 }
