@@ -1,6 +1,6 @@
 package com.jpacourse.rest;
 
-import com.jpacourse.dto.PatientTO;
+
 import com.jpacourse.persistence.entity.PatientEntity;
 import com.jpacourse.persistence.entity.VisitEntity;
 import com.jpacourse.service.PatientService;
@@ -34,7 +34,7 @@ public class PatientController {
         return ResponseEntity.ok("Visit added successfully");
     }
 
-    @GetMapping("/search")
+    @GetMapping("/searchByLastName")
     public List<PatientEntity> searchPatientsByLastName(@RequestParam String lastName) {
         return patientService.findPatientsByLastName(lastName);
     }

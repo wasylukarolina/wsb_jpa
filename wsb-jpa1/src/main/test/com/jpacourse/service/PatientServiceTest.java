@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -143,5 +145,90 @@ public class PatientServiceTest {
         assertThat(result.getIsInsured()).isTrue();
         assertThat(result.getVisits()).isNotEmpty(); // Sprawdzenie wizyt
     }
+
+    @Test
+    public void testFindVisitsByPatientId() {
+        // given
+        AddressEntity addressEntity = new AddressEntity();
+        addressEntity.setAddressLine1("ul. Lipowa 10");
+        addressEntity.setAddressLine2("Mieszkanie 4");
+        addressEntity.setCity("Kraków");
+        addressEntity.setPostalCode("30-001");
+        addressEntity = addressRepository.save(addressEntity);
+
+        PatientEntity patientEntity = new PatientEntity();
+        patientEntity.setFirstName("Marcin");
+        patientEntity.setLastName("Wiśniewski");
+        patientEntity.setTelephoneNumber("987654321");
+        patientEntity.setEmail("marcin.wisniewski@example.com");
+        patientEntity.setPatientNumber("P456");
+        patientEntity.setDateOfBirth(LocalDate.of(1985, 5, 15));
+        patientEntity.setIsInsured(true);
+        patientEntity.setAddress(addressEntity);
+
+        DoctorEntity doctorEntity = new DoctorEntity();
+        doctorEntity.setFirstName("Ewa");
+        doctorEntity.setLastName("Zielińska");
+        doctorEntity.setSpecialization(Specialization.DERMATOLOGIST);
+        doctorEntity.setDoctorNumber("D456");
+        doctorEntity.setTelephoneNumber("789-123-456");
+        doctorEntity = doctorRepository.save(doctorEntity);
+
+        VisitEntity visit1 = new VisitEntity();
+        visit1.setTime(LocalDateTime.now().minusDays(3));
+        visit1.setDescription("Konsultacja dermatologiczna");
+        visit1.setPatient(patientEntity);
+        visit1.setDoctor(doctorEntity);
+
+        VisitEntity visit2 = new VisitEntity();
+        visit2.setTime(LocalDateTime.now());
+        visit2.setDescription("Badanie kontrolne serca");
+        visit2.setPatient(patientEntity);
+        visit2.setDoctor(doctorEntity);
+
+        patientEntity.setVisits(Set.of(visit1, visit2));
+
+        patientEntity = patientRepository.save(patientEntity);
+
+        // when
+        List<VisitEntity> visits = patientService.findVisitsByPatientId(patientEntity.getId());
+
+        // then
+        assertThat(visits).isNotEmpty();
+        assertThat(visits).hasSize(2);
+        assertThat(visits.get(0).getPatient().getId()).isEqualTo(patientEntity.getId());
+        assertThat(visits.get(0).getDescription()).isEqualTo("Konsultacja dermatologiczna");
+        assertThat(visits.get(1).getDescription()).isEqualTo("Badanie kontrolne serca");
+    }
+
+    @Test
+    public void testFindVisitsByPatientId_NoVisits() {
+        // given
+        AddressEntity addressEntity = new AddressEntity();
+        addressEntity.setAddressLine1("ul. Klonowa 5");
+        addressEntity.setAddressLine2("Mieszkanie 2");
+        addressEntity.setCity("Warszawa");
+        addressEntity.setPostalCode("00-123");
+        addressEntity = addressRepository.save(addressEntity);
+
+        PatientEntity patientEntity = new PatientEntity();
+        patientEntity.setFirstName("Anna");
+        patientEntity.setLastName("Kowalska");
+        patientEntity.setTelephoneNumber("555444333");
+        patientEntity.setEmail("anna.kowalska@example.com");
+        patientEntity.setPatientNumber("P789");
+        patientEntity.setDateOfBirth(LocalDate.of(1992, 8, 25));
+        patientEntity.setIsInsured(false);
+        patientEntity.setAddress(addressEntity);
+
+        patientEntity = patientRepository.save(patientEntity);
+
+        // when
+        List<VisitEntity> visits = patientService.findVisitsByPatientId(patientEntity.getId());
+
+        // then
+        assertThat(visits).isEmpty();
+    }
+
 
 }

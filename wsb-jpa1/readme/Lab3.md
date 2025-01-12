@@ -13,5 +13,5 @@ Napisz testy do zapytan w nastepujacej formie:
 2. do zapytania nr 2 - test serwisu
 3. do zapytania nr 3 - test DAO
 4. do zapytania nr 4 - test DAO
-
+ 
 Do wybranej encji dodaj wersjonowanie, oraz napisz test (w DAO) sprawdzajacy rownolegla modyfikacje (OptimisticLock)

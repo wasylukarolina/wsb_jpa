@@ -4,6 +4,7 @@ import com.jpacourse.dto.PatientTO;
 import com.jpacourse.mapper.PatientMapper;
 import com.jpacourse.persistence.dao.DoctorRepository;
 import com.jpacourse.persistence.dao.PatientRepository;
+import com.jpacourse.persistence.dao.PatientDao;
 import com.jpacourse.persistence.entity.DoctorEntity;
 import com.jpacourse.persistence.entity.PatientEntity;
 import com.jpacourse.persistence.entity.VisitEntity;
@@ -20,14 +21,15 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class PatientServiceImpl implements PatientService {
-
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
+    private final PatientDao patientDao;
 
     @Autowired
-    public PatientServiceImpl(PatientRepository patientRepository, DoctorRepository doctorRepository) {
+    public PatientServiceImpl(PatientRepository patientRepository, DoctorRepository doctorRepository, PatientDao patientDao) {
         this.patientRepository = patientRepository;
         this.doctorRepository = doctorRepository;
+        this.patientDao = patientDao;
     }
 
     @Override
@@ -68,22 +70,22 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public List<PatientEntity> findPatientsByLastName(String lastName) {
-        return patientRepository.findPatientsByLastName(lastName);
+        return patientDao.findPatientsByLastName(lastName);
     }
 
     @Override
     public List<VisitEntity> findVisitsByPatientId(Long patientId) {
-        return patientRepository.findVisitsByPatientId(patientId);
+        return patientDao.findVisitsByPatientId(patientId);
     }
 
     @Override
     public List<PatientEntity> findPatientsWithMoreThanGivenVisits(int visitCount) {
-        return patientRepository.findPatientsWithMoreThanGivenVisits(visitCount);
+        return patientDao.findPatientsWithMoreThanGivenVisits(visitCount);
     }
 
     @Override
     public List<PatientEntity> findPatientsWithVisitsAfter(LocalDateTime date) {
-        return patientRepository.findPatientsWithVisitsAfter(date);
+        return patientDao.findPatientsWithVisitsAfter(date);
     }
 
 }
